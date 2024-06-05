@@ -35,7 +35,29 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
+
+        $news = new News();
+        $news->title = $request->title;
+        $news->description = $request->title;
+        $news->category = $request->title;
+        $news->author = auth()->user()->name;
+        $news->save();
+
+        
+        // News::create([
+        //     'title' => $request->title,
+        //     'description' => $request->title,
+        //     'category' => $request->title,
+        //     'author' => auth()->user()->name
+        // ]);
+
+
+        return redirect()->back()->with('message', 'News created successfully');
     }
 
     /**
